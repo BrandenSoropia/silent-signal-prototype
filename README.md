@@ -12,3 +12,7 @@ Using asset packs for faster prototyping and learning. Thanks to:
 Music:
 - B-bit bossa - https://opengameart.org/content/bossa-nova
 - Mysterious Ambience (song21) - https://opengameart.org/content/mysterious-ambience-song21
+
+SFX:
+- Machine Power Off - https://opengameart.org/content/machine-shutting-down
+- Machine Plug In/Out - https://opengameart.org/content/sfx-plug-in-plug-out 

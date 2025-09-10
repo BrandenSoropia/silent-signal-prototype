@@ -9,8 +9,12 @@ public class RespawnPlayer : MonoBehaviour
     [SerializeField] GameObject emptyBodyGO;
     [SerializeField] Transform spawnPoint;
     [SerializeField] ParticleSystem particleSystem;
+    [SerializeField] AudioClip powerOffSFX;
+    [SerializeField] AudioClip powerOnSFX;
+    [SerializeField] float respawnAnimationTime = 1f;
 
     FirstPersonController firstPersonController;
+    [SerializeField] GameManager gameManager;
 
     void Awake()
     {
@@ -32,12 +36,14 @@ public class RespawnPlayer : MonoBehaviour
     IEnumerator Respawn()
     {
         firstPersonController.enabled = false;
-
-        yield return new WaitForSeconds(0.5f);
+        gameManager.IncrementNumTries();
+        AudioSource.PlayClipAtPoint(powerOffSFX, Camera.main.transform.position);
 
         // Spawn a dead body
         Instantiate(emptyBodyGO, transform.position, Quaternion.identity);
-        particleSystem.Play();
+
+
+        yield return new WaitForSeconds(respawnAnimationTime);
 
 
         // Teleport back to last spawn
@@ -47,6 +53,10 @@ public class RespawnPlayer : MonoBehaviour
         */
         transform.SetPositionAndRotation(spawnPoint.position, Quaternion.identity);
         Physics.SyncTransforms();
+
+
+        particleSystem.Play();
+        AudioSource.PlayClipAtPoint(powerOnSFX, Camera.main.transform.position);
 
         firstPersonController.enabled = true;
     }
